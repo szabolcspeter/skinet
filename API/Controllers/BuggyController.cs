@@ -25,11 +25,12 @@ namespace API.Controllers
         [HttpGet("servererror")]
         public ActionResult GetServerError()
         {
-            var thing = _context.Products.Find(42);
+            // var thing = _context.Products.Find(42);
 
-            var thingToReturn = thing.ToString();
+            // var thingToReturn = thing.ToString();
 
-            return Ok();
+            // return Ok();
+            throw new Exception("This is a server error");
         }
 
         [HttpGet("badrequest")]
@@ -42,6 +43,20 @@ namespace API.Controllers
         public ActionResult GetNotFoundRequest(int id)
         {
             return Ok();
+        }
+
+        [HttpGet("unauthorised")]
+        public ActionResult GetUnauthorised()
+        {
+            return Unauthorized();
+        }
+
+        [HttpGet("validationerror")]
+        public ActionResult GetValidationError()
+        {
+            ModelState.AddModelError("Problem1", "This is 1st error");
+            ModelState.AddModelError("Problem2", "This is 2nd error");
+            return ValidationProblem();
         }
     }
 }
